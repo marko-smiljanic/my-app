@@ -16,6 +16,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @Route(value = "login")
 public class LoginView extends LoginOverlay implements BeforeEnterObserver {
 
+    //trenutni korisnik
     private final AuthenticatedUser authenticatedUser;
 
     public LoginView(AuthenticatedUser authenticatedUser) {
@@ -33,6 +34,7 @@ public class LoginView extends LoginOverlay implements BeforeEnterObserver {
         setOpened(true);
     }
 
+    //ako je korisnik vec prijavljen onda ga saljemo na neku stranicu
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         if (authenticatedUser.get().isPresent()) {

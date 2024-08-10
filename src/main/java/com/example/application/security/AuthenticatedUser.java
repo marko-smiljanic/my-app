@@ -19,6 +19,7 @@ public class AuthenticatedUser {
         this.authenticationContext = authenticationContext;
     }
 
+    //vraca trenutno autentifikovanog korisnika iz contexta a zatim koristi injektovani repozitorijum da nadje korisnika iz baze
     @Transactional
     public Optional<User> get() {
         return authenticationContext.getAuthenticatedUser(UserDetails.class)

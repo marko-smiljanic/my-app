@@ -25,18 +25,21 @@ public class Application implements AppShellConfigurator {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource dataSource,
-            SqlInitializationProperties properties, SamplePersonRepository repository) {
-        // This bean ensures the database is only initialized when empty
-        return new SqlDataSourceScriptDatabaseInitializer(dataSource, properties) {
-            @Override
-            public boolean initializeDatabase() {
-                if (repository.count() == 0L) {
-                    return super.initializeDatabase();
-                }
-                return false;
-            }
-        };
-    }
+
+    //inicijalizacija baze samo ako je prazna (ako nije vec inicijalizovana)
+    //Ovo je korisno za scenarije da se baza podataka popune pocetnim podacima samo jednom, prilikom prvog pokretanja aplikacije.
+//    @Bean
+//    SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource dataSource,
+//            SqlInitializationProperties properties, SamplePersonRepository repository) {
+//        // This bean ensures the database is only initialized when empty
+//        return new SqlDataSourceScriptDatabaseInitializer(dataSource, properties) {
+//            @Override
+//            public boolean initializeDatabase() {
+//                if (repository.count() == 0L) {
+//                    return super.initializeDatabase();
+//                }
+//                return false;
+//            }
+//        };
+//    }
 }

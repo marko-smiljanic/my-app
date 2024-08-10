@@ -19,9 +19,11 @@ public class User extends AbstractEntity {
     private String name;
     @JsonIgnore
     private String hashedPassword;
+    //ovo pravi tabelu roles
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
     @Lob
     @Column(length = 1000000)
     private byte[] profilePicture;
