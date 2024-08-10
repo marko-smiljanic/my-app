@@ -31,7 +31,6 @@ public class SecurityConfiguration extends VaadinWebSecurity {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(new AntPathRequestMatcher("/line-awesome/**/*.svg")).permitAll());
 
-
         //da mogu da otvorim h2 gui u browseru
         //>>>>>>>>>>>>>>>
         http.authorizeHttpRequests(authorize -> authorize

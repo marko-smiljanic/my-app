@@ -1,4 +1,4 @@
-package com.example.application.data;
+package com.example.application.entitet;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +9,6 @@ import jakarta.persistence.Version;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgenerator")
     // The initial value is to account for data.sql demo data ids
@@ -18,6 +17,10 @@ public abstract class AbstractEntity {
 
     @Version
     private int version;
+
+
+
+
 
     public Long getId() {
         return id;

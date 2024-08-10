@@ -28,6 +28,8 @@ public class Application implements AppShellConfigurator {
 
     //inicijalizacija baze samo ako je prazna (ako nije vec inicijalizovana)
     //Ovo je korisno za scenarije da se baza podataka popune pocetnim podacima samo jednom, prilikom prvog pokretanja aplikacije.
+    //ovo nije neophodno jer imam app properties i u njemu ddl=update
+
 //    @Bean
 //    SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource dataSource,
 //            SqlInitializationProperties properties, SamplePersonRepository repository) {

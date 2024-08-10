@@ -17,7 +17,7 @@ public class Nalog {
     private LocalDateTime vremeKreiranja;
 
     @ManyToOne
-    private Korisnik korisnik;
+    private User user;
 
     @ManyToOne
     //@JoinColumn(name = "firma_id", nullable = false)
@@ -31,10 +31,10 @@ public class Nalog {
     public Nalog() {
     }
 
-    public Nalog(Long id, LocalDateTime vremeKreiranja, Korisnik korisnik, Firma firma) {
+    public Nalog(Long id, LocalDateTime vremeKreiranja, User user, Firma firma) {
         this.id = id;
         this.vremeKreiranja = vremeKreiranja;
-        this.korisnik = korisnik;
+        this.user = user;
         this.firma = firma;
     }
 
@@ -62,12 +62,12 @@ public class Nalog {
         this.vremeKreiranja = vremeKreiranja;
     }
 
-    public Korisnik getKorisnik() {
-        return korisnik;
+    public User getUser() {
+        return user;
     }
 
-    public void setKorisnik(Korisnik korisnik) {
-        this.korisnik = korisnik;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Firma getFirma() {
