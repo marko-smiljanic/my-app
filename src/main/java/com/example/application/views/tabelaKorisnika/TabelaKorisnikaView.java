@@ -11,6 +11,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -25,6 +26,8 @@ import java.util.List;
 public class TabelaKorisnikaView extends Div {
     @Autowired
     private UserService userService;
+    private ListDataProvider<UserDTO> dataProvider;  //ono sto prikazujem
+    private Grid<UserDTO> grid;
 
 
     public TabelaKorisnikaView(UserService userService) {
@@ -35,7 +38,9 @@ public class TabelaKorisnikaView extends Div {
 
 
     private void iscrtaj(){
-        Grid<UserDTO> grid = new Grid<>(UserDTO.class, false);
+        //true ili false znaci da li zelim automasko kreiranje kolona na osnovu entiteta
+        //mapiranje na polja se radi preko geter i seter metoda, znaci json ignore nema svrhu o ovom slucaju
+        grid = new Grid<>(UserDTO.class, false);
         grid.addColumn(UserDTO::getIme).setHeader("First name");
         grid.addColumn(UserDTO::getPrezime).setHeader("Last name");
         grid.addColumn(UserDTO::getTelefon).setHeader("Phone");
@@ -61,10 +66,36 @@ public class TabelaKorisnikaView extends Div {
             return layout;
         })).setHeader("Actions");
 
-        List<UserDTO> users = userService.findAll2();
-        grid.setItems(users);
+
+//        List<UserDTO> users = userService.findAll2();
+//        grid.setItems(users);
+        dataProvider = new ListDataProvider<>(userService.findAll2());
+        grid.setDataProvider(dataProvider);
         add(grid);
     }
+
+
+    private void editUser(UserDTO n){
+        //refreshGrid();2
+    }
+
+    private void deleteUser(Long id){
+        this.userService.delete(id);
+        this.osveziPrikaz();
+    }
+
+
+    //ako ponovo pozovem crtanje prikaza kao na androidu sto sam radio, ovde nece raditi jer se ovde zadrzi stari prikaz a novi i azurirani se iscrta ispod
+    //za azuriranje podataka radim preko data providera, jer je to ugradjena vaadin-va komponenta
+    private void osveziPrikaz(){
+        //azuriranje preko providera
+        List<UserDTO> updatedUsers = userService.findAll2();
+        dataProvider.getItems().clear();
+        dataProvider.getItems().addAll(updatedUsers);
+        dataProvider.refreshAll();
+    }
+
+
 
 //    private void iscrtaj(){
 //        Grid<User> grid = new Grid<>(User.class, false);
@@ -99,14 +130,6 @@ public class TabelaKorisnikaView extends Div {
 //        add(grid);
 //    }
 
-    private void editUser(UserDTO n){
-        //refreshGrid();2
-    }
-
-    private void deleteUser(Long id){
-        //refreshGrid();
-
-    }
 
 
 

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +44,7 @@ public class UserService {
 //        return listadto;
 //    }
 
+    @Transactional  //ovo je bitno staviti jer program puca jer ne stigne da uveze sa rolama
     public List<UserDTO> findAll2() {
         return repository.findAll().stream()
                 .map(user -> Konverzija.konvertujUDto(user, UserDTO.class))

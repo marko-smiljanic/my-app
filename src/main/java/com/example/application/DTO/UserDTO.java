@@ -1,12 +1,18 @@
 package com.example.application.DTO;
 
 
+import com.example.application.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.HashSet;
 import java.util.Set;
+
+//ako hocu da se neko polje ne mapira u grid (view komponentu) moram skloniti getere i setere, json ignore ne radi posao u ovom slucaju
+//json ignore je u stvari za pozive sa apijem, odnosno sta se vraca kroz json u http zahtevu
+//ako hocu da neka polja izbacim iz dto, moram da sklonim getere i setere
+
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserDTO {
@@ -19,7 +25,7 @@ public class UserDTO {
     @JsonIgnore
     private String hashedPassword;
     @JsonIgnore
-    private Set<String> roles = new HashSet<>();  // Dodato za uloge
+    private Set<Role> roles = new HashSet<>();  // Dodato za uloge
     @JsonIgnore
     private Set<NalogDTO> nalog = new HashSet<>();
 
@@ -109,11 +115,11 @@ public class UserDTO {
         this.hashedPassword = hashedPassword;
     }
 
-    public Set<String> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

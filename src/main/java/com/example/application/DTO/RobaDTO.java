@@ -1,36 +1,29 @@
 package com.example.application.DTO;
 
-import com.example.application.entity.Firma;
 import com.example.application.entity.StavkaNaloga;
-import com.example.application.entity.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class NalogDTO {
+public class RobaDTO {
     private Long id;
-    private LocalDateTime vremeKreiranja;
-    private UserDTO user;
-    private FirmaDTO firma;
+    private String naziv;
+    private String sifra;
     @JsonIgnore
     private Set<StavkaNalogaDTO> stavkeNaloga = new HashSet<>();
 
-
-
-    public NalogDTO() {
+    public RobaDTO() {
     }
 
-    public NalogDTO(Long id, LocalDateTime vremeKreiranja, UserDTO user, FirmaDTO firma) {
+    public RobaDTO(Long id, String naziv, String sifra) {
         this.id = id;
-        this.vremeKreiranja = vremeKreiranja;
-        this.user = user;
-        this.firma = firma;
+        this.naziv = naziv;
+        this.sifra = sifra;
     }
 
     public Long getId() {
@@ -41,28 +34,20 @@ public class NalogDTO {
         this.id = id;
     }
 
-    public LocalDateTime getVremeKreiranja() {
-        return vremeKreiranja;
+    public String getNaziv() {
+        return naziv;
     }
 
-    public void setVremeKreiranja(LocalDateTime vremeKreiranja) {
-        this.vremeKreiranja = vremeKreiranja;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public String getSifra() {
+        return sifra;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
-
-    public FirmaDTO getFirma() {
-        return firma;
-    }
-
-    public void setFirma(FirmaDTO firma) {
-        this.firma = firma;
+    public void setSifra(String sifra) {
+        this.sifra = sifra;
     }
 
     public Set<StavkaNalogaDTO> getStavkeNaloga() {
