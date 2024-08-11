@@ -1,15 +1,14 @@
 package com.example.application.views;
 
-import com.example.application.entitet.User;
+import com.example.application.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkoutform.CheckoutFormView;
-import com.example.application.views.dashboard.DashboardView;
-import com.example.application.views.datagrid.DataGridView;
 import com.example.application.views.helloworld.HelloWorldView;
 import com.example.application.views.masterdetail.MasterDetailView;
 import com.example.application.views.personform.PersonFormView;
 import com.example.application.views.prikazKorisnika.PrikazKorisnikaView;
+import com.example.application.views.tabelaKorisnika.TabelaKorisnikaView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -85,14 +84,6 @@ public class MainLayout extends AppLayout {
             nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
 
         }
-        if (accessChecker.hasAccess(DashboardView.class)) {
-            nav.addItem(new SideNavItem("Dashboard", DashboardView.class, LineAwesomeIcon.CHART_AREA_SOLID.create()));
-
-        }
-        if (accessChecker.hasAccess(DataGridView.class)) {
-            nav.addItem(new SideNavItem("Data Grid", DataGridView.class, LineAwesomeIcon.TH_SOLID.create()));
-
-        }
         if (accessChecker.hasAccess(MasterDetailView.class)) {
             nav.addItem(
                     new SideNavItem("Master-Detail", MasterDetailView.class, LineAwesomeIcon.COLUMNS_SOLID.create()));
@@ -110,6 +101,11 @@ public class MainLayout extends AppLayout {
         if (accessChecker.hasAccess(PrikazKorisnikaView.class)) {
             nav.addItem(new SideNavItem("Korisnici", PrikazKorisnikaView.class, LineAwesomeIcon.USER.create()));
         }
+
+        if (accessChecker.hasAccess(TabelaKorisnikaView.class)) {
+            nav.addItem(new SideNavItem("Korisnici2", TabelaKorisnikaView.class, LineAwesomeIcon.USER.create()));
+        }
+
 
         return nav;
     }

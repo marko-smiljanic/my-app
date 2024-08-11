@@ -1,7 +1,8 @@
 package com.example.application.views.prikazKorisnika;
 
-import com.example.application.entitet.User;
-import com.example.application.repozitorijum.UserRepository;
+import com.example.application.entity.User;
+import com.example.application.repository.UserRepository;
+import com.example.application.services.UserService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -16,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PrikazKorisnikaView extends VerticalLayout {
     private final Grid<User> grid = new Grid<>(User.class);
     @Autowired
-    private UserRepository userService;
+    private UserService userService;
 
 
-    public PrikazKorisnikaView(UserRepository userService) {
+    public PrikazKorisnikaView(UserService userService) {
         this.userService = userService;
         addClassName("user-list-view");
         setSizeFull();

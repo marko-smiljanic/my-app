@@ -1,5 +1,4 @@
-package com.example.application.entitet;
-
+package com.example.application.entity;
 
 import jakarta.persistence.*;
 
@@ -7,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Firma {
+public class Roba {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,20 +15,22 @@ public class Firma {
     private String naziv;
 
     @Column(nullable = false, unique = true)
-    private String pib;
-
-    @OneToMany(mappedBy = "firma")
-    private Set<Nalog> nalozi = new HashSet<Nalog>();
+    private String sifra;
 
 
+    @OneToMany(mappedBy = "roba")
+    private Set<StavkaNaloga> stavkeNaloga = new HashSet<StavkaNaloga>();
 
-    public Firma() {
+
+
+
+    public Roba() {
     }
 
-    public Firma(Long id, String naziv, String pib) {
+    public Roba(Long id, String naziv, String sifra) {
         this.id = id;
         this.naziv = naziv;
-        this.pib = pib;
+        this.sifra = sifra;
     }
 
     public Long getId() {
@@ -48,22 +49,19 @@ public class Firma {
         this.naziv = naziv;
     }
 
-    public String getPib() {
-        return pib;
+    public String getSifra() {
+        return sifra;
     }
 
-    public void setPib(String pib) {
-        this.pib = pib;
+    public void setSifra(String sifra) {
+        this.sifra = sifra;
     }
 
-    public Set<Nalog> getNalozi() {
-        return nalozi;
+    public Set<StavkaNaloga> getStavkeNaloga() {
+        return stavkeNaloga;
     }
 
-    public void setNalozi(Set<Nalog> nalozi) {
-        this.nalozi = nalozi;
+    public void setStavkeNaloga(Set<StavkaNaloga> stavkeNaloga) {
+        this.stavkeNaloga = stavkeNaloga;
     }
-
-
-
 }

@@ -1,8 +1,8 @@
 package com.example.application.data;
 
-import com.example.application.entitet.Role;
-import com.example.application.entitet.User;
-import com.example.application.repozitorijum.UserRepository;
+import com.example.application.entity.Role;
+import com.example.application.entity.User;
+import com.example.application.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,6 @@ import java.util.Set;
 //manmuelno sam ulogovao korisnika
 
 //ne treba autowired!!!
-
 
 
 @Configuration

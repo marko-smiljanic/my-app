@@ -1,8 +1,13 @@
 package com.example.application.services;
 
-import com.example.application.entitet.User;
-import com.example.application.repozitorijum.UserRepository;
+import com.example.application.entity.Firma;
+import com.example.application.entity.User;
+import com.example.application.repository.UserRepository;
+
+import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,12 +18,18 @@ public class UserService {
 
     private final UserRepository repository;
 
+//    @Autowired
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
+
     public Optional<User> get(Long id) {
         return repository.findById(id);
+    }
+
+    public List<User> findAll() {
+        return repository.findAll();
     }
 
     public User update(User entity) {

@@ -1,7 +1,7 @@
 package com.example.application.security;
 
-import com.example.application.entitet.User;
-import com.example.application.repozitorijum.UserRepository;
+import com.example.application.entity.User;
+import com.example.application.repository.UserRepository;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;
