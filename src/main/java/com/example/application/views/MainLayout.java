@@ -9,6 +9,7 @@ import com.example.application.views.datagrid.DataGridView;
 import com.example.application.views.helloworld.HelloWorldView;
 import com.example.application.views.masterdetail.MasterDetailView;
 import com.example.application.views.personform.PersonFormView;
+import com.example.application.views.prikazKorisnika.PrikazKorisnikaView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -38,7 +39,6 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
 public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
-
     private AuthenticatedUser authenticatedUser;
     private AccessAnnotationChecker accessChecker;
 
@@ -51,6 +51,7 @@ public class MainLayout extends AppLayout {
         addHeaderContent();
     }
 
+    //dodavanje dugmeta za zatvaranje i otvaranje bocnog menija i naslov stranice u zaglalvju
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
@@ -61,6 +62,7 @@ public class MainLayout extends AppLayout {
         addToNavbar(true, toggle, viewTitle);
     }
 
+    //dodaje naslov aplikacije u bicno meni i navigacije koristeci scroller za pomeranje
     private void addDrawerContent() {
         Span appName = new Span("My App");
         appName.addClassNames(LumoUtility.FontWeight.SEMIBOLD, LumoUtility.FontSize.LARGE);
@@ -71,6 +73,7 @@ public class MainLayout extends AppLayout {
         addToDrawer(header, scroller, createFooter());
     }
 
+    //kreira bocni meni sidenav i ovde ukljucujem moje view-e
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
 
@@ -104,9 +107,14 @@ public class MainLayout extends AppLayout {
 
         }
 
+        if (accessChecker.hasAccess(PrikazKorisnikaView.class)) {
+            nav.addItem(new SideNavItem("Korisnici", PrikazKorisnikaView.class, LineAwesomeIcon.USER.create()));
+        }
+
         return nav;
     }
 
+    //donji deo sa avatarom korisnika i opcijom za odjavu ako je korisnik prijavljen, ako nije prikazuje signin link
     private Footer createFooter() {
         Footer layout = new Footer();
 
@@ -138,7 +146,10 @@ public class MainLayout extends AppLayout {
             });
 
             layout.add(userMenu);
+
+
         } else {
+            //anchor je vaadin komponenta koja predstalvja link <a>, prvi argument je putanja drugi tekst linka
             Anchor loginLink = new Anchor("login", "Sign in");
             layout.add(loginLink);
         }
@@ -146,14 +157,19 @@ public class MainLayout extends AppLayout {
         return layout;
     }
 
+
+    //ovo se poziva nakon sto se izvrsi navigaicja i postalvja naslov stranice prema trenutnom prikazu
     @Override
     protected void afterNavigation() {
         super.afterNavigation();
         viewTitle.setText(getCurrentPageTitle());
     }
 
+    //dobija naslov trenutne stranice i koristi anotaciju page title u mojim view klasama
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
+
 }

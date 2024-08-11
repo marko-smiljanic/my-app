@@ -42,6 +42,10 @@ public class SecurityConfiguration extends VaadinWebSecurity {
                         .addHeaderWriter((request, response) -> response.setHeader("X-Frame-Options", "ALLOW-FROM http://localhost:8080"))
                 );
 
+
+//        http.authorizeHttpRequests(authorize -> authorize
+//                .requestMatchers(new AntPathRequestMatcher("korisnici")).permitAll());
+
         super.configure(http);
         setLoginView(http, LoginView.class);
     }
