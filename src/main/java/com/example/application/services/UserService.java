@@ -1,11 +1,15 @@
 package com.example.application.services;
 
+import com.example.application.DTO.Konverzija;
+import com.example.application.DTO.UserDTO;
 import com.example.application.entity.Firma;
 import com.example.application.entity.User;
 import com.example.application.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +30,23 @@ public class UserService {
 
     public Optional<User> get(Long id) {
         return repository.findById(id);
+    }
+
+//    public List<UserDTO> findAll() {
+//        //return repository.findAll();
+//        ArrayList<UserDTO> listadto = new ArrayList<>();
+//        for(User n : repository.findAll()){
+//            UserDTO ndto = null;
+//            ndto = Konverzija.konvertujUDto(n, UserDTO.class);
+//            listadto.add(ndto);
+//        }
+//        return listadto;
+//    }
+
+    public List<UserDTO> findAll2() {
+        return repository.findAll().stream()
+                .map(user -> Konverzija.konvertujUDto(user, UserDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<User> findAll() {

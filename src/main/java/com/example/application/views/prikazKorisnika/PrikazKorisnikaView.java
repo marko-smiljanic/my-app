@@ -17,11 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PrikazKorisnikaView extends VerticalLayout {
     private final Grid<User> grid = new Grid<>(User.class);
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
 
-    public PrikazKorisnikaView(UserService userService) {
-        this.userService = userService;
+    public PrikazKorisnikaView(UserRepository userRepository) {
+        this.userRepository = userRepository;
         addClassName("user-list-view");
         setSizeFull();
         configureGrid();
@@ -38,6 +38,6 @@ public class PrikazKorisnikaView extends VerticalLayout {
     }
 
     private void updateGrid() {
-        grid.setItems(userService.findAll());
+        grid.setItems(userRepository.findAll());
     }
 }

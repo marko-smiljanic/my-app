@@ -1,5 +1,6 @@
 package com.example.application.views.tabelaKorisnika;
 
+import com.example.application.DTO.UserDTO;
 import com.example.application.entity.User;
 import com.example.application.services.UserService;
 import com.example.application.views.MainLayout;
@@ -32,24 +33,25 @@ public class TabelaKorisnikaView extends Div {
         iscrtaj();
     }
 
-    private void iscrtaj(){
-        Grid<User> grid = new Grid<>(User.class, false);
-        grid.addColumn(User::getIme).setHeader("First name");
-        grid.addColumn(User::getPrezime).setHeader("Last name");
-        grid.addColumn(User::getTelefon).setHeader("Phone");
 
-        grid.addColumn(new ComponentRenderer<>(user -> {
+    private void iscrtaj(){
+        Grid<UserDTO> grid = new Grid<>(UserDTO.class, false);
+        grid.addColumn(UserDTO::getIme).setHeader("First name");
+        grid.addColumn(UserDTO::getPrezime).setHeader("Last name");
+        grid.addColumn(UserDTO::getTelefon).setHeader("Phone");
+
+        grid.addColumn(new ComponentRenderer<>(userDTO -> {
             // Create a horizontal layout to hold both buttons
             HorizontalLayout layout = new HorizontalLayout();
 
             // Create and configure the "Edit" button
             Button editButton = new Button(new Icon(VaadinIcon.EDIT));
-            editButton.addClickListener(e -> editUser(user));
+            editButton.addClickListener(e -> editUser(userDTO));
             editButton.addThemeVariants(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_TERTIARY);
 
             // Create and configure the "Delete" button
             Button deleteButton = new Button(new Icon(VaadinIcon.TRASH));
-            deleteButton.addClickListener(e -> deleteUser(user.getId()));
+            deleteButton.addClickListener(e -> deleteUser(userDTO.getId()));
             deleteButton.addThemeVariants(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_ERROR);
 
             // Add both buttons to the layout
@@ -59,13 +61,46 @@ public class TabelaKorisnikaView extends Div {
             return layout;
         })).setHeader("Actions");
 
-        List<User> users = userService.findAll();
+        List<UserDTO> users = userService.findAll2();
         grid.setItems(users);
         add(grid);
     }
 
-    private void editUser(User n){
-        //refreshGrid();
+//    private void iscrtaj(){
+//        Grid<User> grid = new Grid<>(User.class, false);
+//        grid.addColumn(User::getIme).setHeader("First name");
+//        grid.addColumn(User::getPrezime).setHeader("Last name");
+//        grid.addColumn(User::getTelefon).setHeader("Phone");
+//
+//        grid.addColumn(new ComponentRenderer<>(user -> {
+//            // Create a horizontal layout to hold both buttons
+//            HorizontalLayout layout = new HorizontalLayout();
+//
+//            // Create and configure the "Edit" button
+//            Button editButton = new Button(new Icon(VaadinIcon.EDIT));
+//            editButton.addClickListener(e -> editUser(user));
+//            editButton.addThemeVariants(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_TERTIARY);
+//
+//            // Create and configure the "Delete" button
+//            Button deleteButton = new Button(new Icon(VaadinIcon.TRASH));
+//            deleteButton.addClickListener(e -> deleteUser(user.getId()));
+//            deleteButton.addThemeVariants(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_ERROR);
+//
+//            // Add both buttons to the layout
+//            layout.add(editButton, deleteButton);
+//
+//            // Return the layout containing both buttons
+//            return layout;
+//        })).setHeader("Actions");
+//
+//
+//        List<User> users = userService.findAll();
+//        grid.setItems(users);
+//        add(grid);
+//    }
+
+    private void editUser(UserDTO n){
+        //refreshGrid();2
     }
 
     private void deleteUser(Long id){
