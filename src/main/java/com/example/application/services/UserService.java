@@ -59,6 +59,10 @@ public class UserService {
         return repository.save(entity);
     }
 
+    public User create(User entity) {
+        return repository.save(entity);
+    }
+
     public void delete(Long id) {
         repository.deleteById(id);
     }

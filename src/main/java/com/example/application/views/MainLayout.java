@@ -5,7 +5,6 @@ import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkoutform.CheckoutFormView;
 import com.example.application.views.helloworld.HelloWorldView;
-import com.example.application.views.masterdetail.MasterDetailView;
 import com.example.application.views.personform.PersonFormView;
 import com.example.application.views.prikazKorisnika.PrikazKorisnikaView;
 import com.example.application.views.tabelaKorisnika.TabelaKorisnikaView;
@@ -84,11 +83,6 @@ public class MainLayout extends AppLayout {
             nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
 
         }
-        if (accessChecker.hasAccess(MasterDetailView.class)) {
-            nav.addItem(
-                    new SideNavItem("Master-Detail", MasterDetailView.class, LineAwesomeIcon.COLUMNS_SOLID.create()));
-
-        }
         if (accessChecker.hasAccess(PersonFormView.class)) {
             nav.addItem(new SideNavItem("Person Form", PersonFormView.class, LineAwesomeIcon.USER.create()));
 
@@ -119,11 +113,13 @@ public class MainLayout extends AppLayout {
             User user = maybeUser.get();
 
             Avatar avatar = new Avatar(user.getIme());
-            StreamResource resource = new StreamResource("profile-pic",
-                    () -> new ByteArrayInputStream(user.getProfilePicture()));
-            avatar.setImageResource(resource);
-            avatar.setThemeName("xsmall");
-            avatar.getElement().setAttribute("tabindex", "-1");
+            if(user.getProfilePicture() != null) {
+                StreamResource resource = new StreamResource("profile-pic",
+                        () -> new ByteArrayInputStream(user.getProfilePicture()));
+                avatar.setImageResource(resource);
+                avatar.setThemeName("xsmall");
+                avatar.getElement().setAttribute("tabindex", "-1");
+            }
 
             MenuBar userMenu = new MenuBar();
             userMenu.setThemeName("tertiary-inline contrast");

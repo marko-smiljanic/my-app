@@ -24,13 +24,13 @@ public class User extends AbstractEntity {
     @JsonIgnore
     private String hashedPassword;
 
-    //ovo pravi tabelu roles
+    //ovo takodje pravi tabelu roles, bez potrebe za entitetom roles
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     @Lob
-    @Column(length = 1000000)
+    //@Column(length = 1000000)
     private byte[] profilePicture;
 
     @OneToMany(mappedBy = "user")
