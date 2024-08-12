@@ -9,6 +9,7 @@ import com.example.application.services.UserService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
@@ -18,22 +19,26 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-@AnonymousAllowed
+//@DenyAll
+//@PermitAll
+//@AnonymousAllowed
+//@RolesAllowed({"ADMIN", "USER"})
+@RolesAllowed("ADMIN")
 @PageTitle("Korisnici2")
 @Route(value = "korisnici2", layout = MainLayout.class)
 public class TabelaKorisnikaView extends Div {
@@ -56,14 +61,14 @@ public class TabelaKorisnikaView extends Div {
 
 
     private void iscrtaj(){
-        HorizontalLayout lyt = new HorizontalLayout();
-        lyt.setWidth("100%");
         Button addButton = new Button("Dodaj", event -> addUser());
         addButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        lyt.setAlignItems(FlexComponent.Alignment.CENTER);
-        lyt.add(addButton);
-        add(lyt);  //dodaj u osnovnu komponentu
+        HorizontalLayout buttonLayout = new HorizontalLayout();
+        buttonLayout.setWidth("100%");
+        buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        buttonLayout.add(addButton);
+        add(buttonLayout);
 
 
         //true ili false znaci da li zelim automasko kreiranje kolona na osnovu entiteta
@@ -73,6 +78,7 @@ public class TabelaKorisnikaView extends Div {
         grid.addColumn(UserDTO::getIme).setHeader("First name");
         grid.addColumn(UserDTO::getPrezime).setHeader("Last name");
         grid.addColumn(UserDTO::getTelefon).setHeader("Phone");
+        grid.addColumn(UserDTO::getRoles).setHeader("Role");
 
         grid.addColumn(new ComponentRenderer<>(userDTO -> {
             // Create a horizontal layout to hold both buttons
@@ -137,15 +143,25 @@ public class TabelaKorisnikaView extends Div {
         passwordField.setRequiredIndicatorVisible(true);
         passwordField.setErrorMessage("Password is required!!!");
 
+        CheckboxGroup<Role> roleCheckboxGroup = new CheckboxGroup<>("Roles");
+        roleCheckboxGroup.setLabel("Select Roles");
+        roleCheckboxGroup.setItems(EnumSet.allOf(Role.class));
+        roleCheckboxGroup.setItemLabelGenerator(Role::name);
+        roleCheckboxGroup.setRequired(true);
+        roleCheckboxGroup.setErrorMessage("At least one role must be selected.");
+        roleCheckboxGroup.setValue(dto.getRoles());   //da bude popunjeno
+
+
         // Kreiraj dugme za čuvanje izmena
         Button saveButton = new Button("Save", event -> {
-            if (telefonField.isInvalid() || imeField.isEmpty() || prezimeField.isEmpty() || passwordField.isEmpty()) {
+            if (roleCheckboxGroup.getValue().isEmpty() || telefonField.isInvalid() || imeField.isEmpty() || prezimeField.isEmpty() || passwordField.isEmpty()) {
                 Notification.show("Please fill all required fields.");
                 return;
             }
             dto.setIme(imeField.getValue());
             dto.setPrezime(prezimeField.getValue());
             dto.setTelefon(telefonField.getValue().toString());
+            dto.setRoles(roleCheckboxGroup.getSelectedItems());
             String password = passwordField.getValue();
             if (password != null && !password.isEmpty()) {
                 dto.setHashedPassword(passwordEncoder.encode(password));
@@ -155,6 +171,7 @@ public class TabelaKorisnikaView extends Div {
             User n = Konverzija.konvertujUEntitet(dto, User.class);
             n.setId(dto.getId());
             userService.update(n);
+
             this.osveziPrikaz();
             dialog.close();
         });
@@ -162,7 +179,7 @@ public class TabelaKorisnikaView extends Div {
         //Otkazivanje izmena
         Button cancelButton = new Button("Cancel", event -> dialog.close());
 
-        dialog.add(new VerticalLayout(imeField, prezimeField, telefonField, passwordField, saveButton, cancelButton));
+        dialog.add(new VerticalLayout(imeField, prezimeField, telefonField, passwordField, roleCheckboxGroup, saveButton, cancelButton));
         dialog.open();
     }
 
@@ -197,8 +214,16 @@ public class TabelaKorisnikaView extends Div {
         passwordField.setRequiredIndicatorVisible(true);
         passwordField.setErrorMessage("Password is required!!!");
 
+        CheckboxGroup<Role> roleCheckboxGroup = new CheckboxGroup<>("Roles");
+        roleCheckboxGroup.setLabel("Select Roles");
+        roleCheckboxGroup.setItems(EnumSet.allOf(Role.class));
+        roleCheckboxGroup.setItemLabelGenerator(Role::name);
+        roleCheckboxGroup.setRequired(true);
+        roleCheckboxGroup.setErrorMessage("At least one role must be selected.");
+        //roleCheckboxGroup.setValue(dto.getRoles());
+
         Button saveButton = new Button("Save", event -> {
-            if (telefonField.isInvalid() || usernameField.isEmpty() || imeField.isEmpty() || prezimeField.isEmpty() || passwordField.isEmpty()) {
+            if (roleCheckboxGroup.getValue().isEmpty() || telefonField.isInvalid() || usernameField.isEmpty() || imeField.isEmpty() || prezimeField.isEmpty() || passwordField.isEmpty()) {
                 Notification.show("Please fill all required fields.");
                 return;
             }
@@ -207,7 +232,8 @@ public class TabelaKorisnikaView extends Div {
             newUser.setUsername(usernameField.getValue());
             newUser.setIme(imeField.getValue());
             newUser.setPrezime(prezimeField.getValue());
-            newUser.setTelefon(telefonField != null ? telefonField.getValue() : "");
+            newUser.setTelefon(telefonField.getValue() != null ? telefonField.getValue() : "");
+            newUser.setRoles(roleCheckboxGroup.getSelectedItems());
             String password = passwordField.getValue();
             if (password != null && !password.isEmpty()) {
                 newUser.setHashedPassword(passwordEncoder.encode(password));
@@ -215,13 +241,14 @@ public class TabelaKorisnikaView extends Div {
 
             // Cuvanje u bazu novog usera
             userService.create(newUser);
+
             // Osvezavanje prikaza grida
             this.osveziPrikaz();
             dialog.close();
         });
 
         Button cancelButton = new Button("Cancel", event -> dialog.close());
-        dialog.add(new VerticalLayout(usernameField, imeField, prezimeField, telefonField, passwordField, saveButton, cancelButton));
+        dialog.add(new VerticalLayout(usernameField, imeField, prezimeField, telefonField, passwordField, roleCheckboxGroup, saveButton, cancelButton));
         dialog.open();
     }
 

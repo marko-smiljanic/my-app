@@ -34,7 +34,7 @@ public class LoginView extends LoginOverlay implements BeforeEnterObserver {
         setOpened(true);
     }
 
-    //ako je korisnik vec prijavljen onda ga saljemo na neku stranicu
+    //ako je korisnik vec prijavljen onda ga saljemo na neku stranicu, ne otvaramo ovaj view
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         if (authenticatedUser.get().isPresent()) {
