@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,19 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    //za lazy loading mora da se vraca Stream
+    @Transactional
+    public List<UserDTO> lazyFindAll(int page, int pageSize) {
+        return repository.findAll(PageRequest.of(page, pageSize)).stream()
+                .map(user -> Konverzija.konvertujUDto(user, UserDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public User getUserById(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
     public List<User> findAll() {
         return repository.findAll();
     }
@@ -65,18 +79,6 @@ public class UserService {
 
     public void delete(Long id) {
         repository.deleteById(id);
-    }
-
-    public Page<User> list(Pageable pageable) {
-        return repository.findAll(pageable);
-    }
-
-    public Page<User> list(Pageable pageable, Specification<User> filter) {
-        return repository.findAll(filter, pageable);
-    }
-
-    public int count() {
-        return (int) repository.count();
     }
 
 }
