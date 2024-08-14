@@ -5,7 +5,7 @@ import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkoutform.CheckoutFormView;
 import com.example.application.views.personform.PersonFormView;
-import com.example.application.views.prikazKorisnika.PrikazKorisnikaView;
+import com.example.application.views.prikazRoba.TabelaRobaView;
 import com.example.application.views.tabelaKorisnika.TabelaKorisnikaView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -88,12 +88,11 @@ public class MainLayout extends AppLayout {
 
         }
 
-        if (accessChecker.hasAccess(PrikazKorisnikaView.class)) {
-            nav.addItem(new SideNavItem("Korisnici", PrikazKorisnikaView.class, LineAwesomeIcon.USER.create()));
-        }
-
         if (accessChecker.hasAccess(TabelaKorisnikaView.class)) {
             nav.addItem(new SideNavItem("Korisnici2", TabelaKorisnikaView.class, LineAwesomeIcon.USER.create()));
+        }
+        if (accessChecker.hasAccess(TabelaRobaView.class)) {
+            nav.addItem(new SideNavItem("Roba", TabelaRobaView.class, LineAwesomeIcon.USER.create()));
         }
 
 

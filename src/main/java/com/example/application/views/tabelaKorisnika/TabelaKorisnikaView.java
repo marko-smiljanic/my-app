@@ -186,7 +186,7 @@ public class TabelaKorisnikaView extends Div {
             UserDTO userDTO = new UserDTO();
             if (binder.writeBeanIfValid(userDTO)) {
                 User newUser = Konverzija.konvertujUEntitet(userDTO, User.class);
-                userService.create(newUser);
+                userService.create(newUser);        //kada radim kreiranje novog ne smem imati setovan id
 
                 this.osveziPrikaz();
                 dialog.close();
@@ -272,7 +272,7 @@ public class TabelaKorisnikaView extends Div {
         Button saveButton = new Button("Save", event -> {
             if (binder.writeBeanIfValid(dto)) {
                 User n = Konverzija.konvertujUEntitet(dto, User.class);
-                n.setId(dto.getId());
+                n.setId(dto.getId());       //kada radim update moram setovati id Useru n
                 userService.update(n);
 
                 this.osveziPrikaz();

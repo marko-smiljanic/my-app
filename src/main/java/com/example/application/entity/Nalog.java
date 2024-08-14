@@ -27,7 +27,6 @@ public class Nalog {
     private Set<StavkaNaloga> stavkeNaloga = new HashSet<StavkaNaloga>();
 
 
-
     public Nalog() {
     }
 
