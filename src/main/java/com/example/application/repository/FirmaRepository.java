@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FirmaRepository extends JpaRepository<Firma, Long>, JpaSpecificationExecutor<Firma> {
+
+    Firma findByNaziv(String naziv);
+    Firma findByPib(String pib);
 }

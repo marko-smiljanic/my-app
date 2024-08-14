@@ -24,6 +24,11 @@ public class FirmaService {
         return repository.findById(id);
     }
 
+
+    public Firma findByPib(String pib) {
+        return repository.findByPib(pib);
+    }
+
     public Firma create(Firma n) {
         return repository.save(n);
     }

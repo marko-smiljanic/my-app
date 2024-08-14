@@ -40,8 +40,8 @@ import java.util.List;
 //@AnonymousAllowed
 //@RolesAllowed({"ADMIN", "USER"})
 @RolesAllowed("ADMIN")
-@PageTitle("Korisnici2")
-@Route(value = "korisnici2", layout = MainLayout.class)
+@PageTitle("Korisnici")
+@Route(value = "korisnici", layout = MainLayout.class)
 public class TabelaKorisnikaView extends Div {
     @Autowired
     private UserService userService;
@@ -121,9 +121,9 @@ public class TabelaKorisnikaView extends Div {
 
         // Kreiraj polja za unos
         TextField usernameField = new TextField("Username");
-        usernameField.setRequired(true);
+        usernameField.setRequired(true);         //ovo radi samo ako nemam binder
         usernameField.setRequiredIndicatorVisible(true);
-        usernameField.setErrorMessage("Field is required!!!");
+        usernameField.setErrorMessage("Field is required!!!");   //ovo radi samo ako nemam binder
 
         TextField imeField = new TextField("First Name");
         imeField.setRequired(true);
@@ -181,6 +181,7 @@ public class TabelaKorisnikaView extends Div {
         binder.forField(roleCheckboxGroup)
                 .withValidator(roles -> !roles.isEmpty(), "At least one role must be selected.")
                 .bind(UserDTO::getRoles, UserDTO::setRoles);
+
 
         Button saveButton = new Button("Save", event -> {
             UserDTO userDTO = new UserDTO();
@@ -247,19 +248,11 @@ public class TabelaKorisnikaView extends Div {
         binder.forField(passwordField)
                 .withValidator(new StringLengthValidator("Password need min 8 characters.", 8, 255))
                 .bind(UserDTO::getHashedPassword, (UserDTO, password) -> {    //Getter metoda za lozinku, gore sam je stavio na dto set hes lozinka "", ali treba u modelu izmeniti da vraca "", nakon toga ide setter lambda funkcija
-                            if (password != null && !password.isEmpty()) {
-                                dto.setHashedPassword(passwordEncoder.encode(password));
-                            }
+                        if (password != null && !password.isEmpty()) {
+                            dto.setHashedPassword(passwordEncoder.encode(password));
                         }
+                    }
                 );
-//          binder.forField(passwordField)
-//                .withValidator(password -> password != null && !password.isEmpty(), "Password is required")
-//                .bind(UserDTO::getHashedPassword, (UserDTO, password) -> {    //Getter metoda za lozinku, gore sam je stavio na dto set hes lozinka "", ali treba u modelu izmeniti da vraca "", nakon toga ide setter lambda funkcija
-//                    if (password != null && !password.isEmpty()) {
-//                        dto.setHashedPassword(passwordEncoder.encode(password));
-//                    }
-//                }
-//        );
 
         binder.forField(roleCheckboxGroup)
                 .withValidator(roles -> !roles.isEmpty(), "At least one role must be selected")

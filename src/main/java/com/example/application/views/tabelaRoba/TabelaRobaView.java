@@ -1,4 +1,4 @@
-package com.example.application.views.prikazRoba;
+package com.example.application.views.tabelaRoba;
 
 import com.example.application.DTO.RobaDTO;
 import com.example.application.entity.Roba;
@@ -10,30 +10,21 @@ import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.validator.RegexpValidator;
-import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.EnumSet;
 
 @RolesAllowed("ADMIN")
 @PageTitle("Roba")
@@ -57,8 +48,8 @@ public class TabelaRobaView extends Div {
     private void iscrtajGrid() {
         //Kreiranje grida
         grid = new Grid<>(RobaDTO.class, false);
-        grid.addColumn(RobaDTO::getNaziv).setHeader("Username");
-        grid.addColumn(RobaDTO::getSifra).setHeader("First Name");
+        grid.addColumn(RobaDTO::getNaziv).setHeader("Naziv");
+        grid.addColumn(RobaDTO::getSifra).setHeader("Sifra");
         grid.setSizeFull();
 
         grid.addColumn(new ComponentRenderer<>(robaDto -> {

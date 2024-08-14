@@ -1,11 +1,17 @@
 package com.example.application.services;
 
+import com.example.application.DTO.Konverzija;
+import com.example.application.DTO.NalogDTO;
 import com.example.application.entity.Nalog;
 import com.example.application.repository.NalogRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NalogService {
@@ -18,6 +24,13 @@ public class NalogService {
 
     public Iterable<Nalog> findAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    public List<NalogDTO> lazyFindAll(int page, int pageSize) {
+        return repository.findAll(PageRequest.of(page, pageSize)).stream()
+                .map(nalog -> Konverzija.konvertujUDto(nalog, NalogDTO.class))
+                .collect(Collectors.toList());
     }
 
     public Optional<Nalog> findById(Long id) {

@@ -3,9 +3,8 @@ package com.example.application.views;
 import com.example.application.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
-import com.example.application.views.checkoutform.CheckoutFormView;
-import com.example.application.views.personform.PersonFormView;
-import com.example.application.views.prikazRoba.TabelaRobaView;
+import com.example.application.views.tabelaNalog.TabelaNalogView;
+import com.example.application.views.tabelaRoba.TabelaRobaView;
 import com.example.application.views.tabelaKorisnika.TabelaKorisnikaView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -89,10 +88,13 @@ public class MainLayout extends AppLayout {
 //        }
 
         if (accessChecker.hasAccess(TabelaKorisnikaView.class)) {
-            nav.addItem(new SideNavItem("Korisnici2", TabelaKorisnikaView.class, LineAwesomeIcon.USER.create()));
+            nav.addItem(new SideNavItem("Korisnici", TabelaKorisnikaView.class, LineAwesomeIcon.USER.create()));
         }
         if (accessChecker.hasAccess(TabelaRobaView.class)) {
             nav.addItem(new SideNavItem("Roba", TabelaRobaView.class, LineAwesomeIcon.BOX_OPEN_SOLID.create()));
+        }
+        if (accessChecker.hasAccess(TabelaNalogView.class)) {
+            nav.addItem(new SideNavItem("Nalozi", TabelaNalogView.class, LineAwesomeIcon.BOX_OPEN_SOLID.create()));
         }
 
 

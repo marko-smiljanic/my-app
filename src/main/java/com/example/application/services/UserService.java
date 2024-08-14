@@ -52,6 +52,10 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public User findByUsername(String username){
+        return this.repository.findByUsername(username);
+    }
+
     //za lazy loading mora da se vraca Stream
     @Transactional
     public List<UserDTO> lazyFindAll(int page, int pageSize) {
