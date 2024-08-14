@@ -4,7 +4,6 @@ import com.example.application.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkoutform.CheckoutFormView;
-import com.example.application.views.helloworld.HelloWorldView;
 import com.example.application.views.personform.PersonFormView;
 import com.example.application.views.prikazKorisnika.PrikazKorisnikaView;
 import com.example.application.views.tabelaKorisnika.TabelaKorisnikaView;
@@ -75,10 +74,7 @@ public class MainLayout extends AppLayout {
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
 
-        if (accessChecker.hasAccess(HelloWorldView.class)) {
-            nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
 
-        }
         if (accessChecker.hasAccess(AboutView.class)) {
             nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
 

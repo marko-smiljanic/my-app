@@ -57,6 +57,7 @@ public class TabelaKorisnikaView extends Div {
         this.authenticatedUser = authenticatedUser;
         this.passwordEncoder = passwordEncoder;
 
+        setSizeFull();
         iscrtajDugmeDodaj();
         iscrtajGrid();
     }
@@ -69,6 +70,7 @@ public class TabelaKorisnikaView extends Div {
         grid.addColumn(UserDTO::getPrezime).setHeader("Last Name");
         grid.addColumn(UserDTO::getTelefon).setHeader("Phone");
         grid.addColumn(UserDTO::getRoles).setHeader("Roles");
+        grid.setSizeFull();
 
         //Kreiranje reda grida sa podacima i dugmadima
         grid.addColumn(new ComponentRenderer<>(userDTO -> {
@@ -97,7 +99,6 @@ public class TabelaKorisnikaView extends Div {
         grid.setItems(query -> userService.lazyFindAll(query.getPage(), query.getPageSize()).stream());
 
         add(grid);  // Dodaj grid u osnovnu komponentu
-        //setSizeFull();
     }
 
     private void iscrtajDugmeDodaj(){
