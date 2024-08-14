@@ -79,20 +79,20 @@ public class MainLayout extends AppLayout {
             nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
 
         }
-        if (accessChecker.hasAccess(PersonFormView.class)) {
-            nav.addItem(new SideNavItem("Person Form", PersonFormView.class, LineAwesomeIcon.USER.create()));
-
-        }
-        if (accessChecker.hasAccess(CheckoutFormView.class)) {
-            nav.addItem(new SideNavItem("Checkout Form", CheckoutFormView.class, LineAwesomeIcon.CREDIT_CARD.create()));
-
-        }
+//        if (accessChecker.hasAccess(PersonFormView.class)) {
+//            nav.addItem(new SideNavItem("Person Form", PersonFormView.class, LineAwesomeIcon.USER.create()));
+//
+//        }
+//        if (accessChecker.hasAccess(CheckoutFormView.class)) {
+//            nav.addItem(new SideNavItem("Checkout Form", CheckoutFormView.class, LineAwesomeIcon.CREDIT_CARD.create()));
+//
+//        }
 
         if (accessChecker.hasAccess(TabelaKorisnikaView.class)) {
             nav.addItem(new SideNavItem("Korisnici2", TabelaKorisnikaView.class, LineAwesomeIcon.USER.create()));
         }
         if (accessChecker.hasAccess(TabelaRobaView.class)) {
-            nav.addItem(new SideNavItem("Roba", TabelaRobaView.class, LineAwesomeIcon.USER.create()));
+            nav.addItem(new SideNavItem("Roba", TabelaRobaView.class, LineAwesomeIcon.BOX_OPEN_SOLID.create()));
         }
 
 

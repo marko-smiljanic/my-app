@@ -24,28 +24,28 @@ public class AboutView extends VerticalLayout {
         this.authenticatedUser = authenticatedUser;
         //ovo je primer kako se moze raditi provera prava pristupa za odredjene delove komponente
         if (authenticatedUser.hasRole(Role.USER) && authenticatedUser.hasRole(Role.ADMIN)){
-            add(new Paragraph("Ti si i USER i ADMIN."));
+            add(new H2("Ti si i USER i ADMIN."));
         }else {
             if (authenticatedUser.hasRole(Role.USER)) {
-                add(new Paragraph("Ti si USER."));
+                add(new H2("Ti si USER. Za Dodatne funkcionalnosti uloguj se kao ADMIN."));
             } else if (authenticatedUser.hasRole(Role.ADMIN)) {
-                add(new Paragraph("Ti si ADMIN."));
+                add(new H2("Ti si ADMIN."));
             }
             else {
-                add(new Paragraph("Nisi ulogovan."));
+                add(new H2("Nisi ulogovan. Za Dodatne funkcionalnosti uloguj se kao ADMIN."));
             }
         }
 
 
         setSpacing(false);
-        Image img = new Image("images/empty-plant.png", "placeholder plant");
-        img.setWidth("200px");
-        add(img);
+        //Image img = new Image("images/empty-plant.png", "placeholder plant");
+        //img.setWidth("200px");
+        //add(img);
 
-        H2 header = new H2("This place intentionally left empty");
-        header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
-        add(header);
-        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
+       // H2 header = new H2("This place intentionally left empty");
+        //header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
+        //add(header);
+        //add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);
