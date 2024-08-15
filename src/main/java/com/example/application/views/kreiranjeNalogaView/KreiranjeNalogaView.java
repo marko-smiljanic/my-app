@@ -155,7 +155,8 @@ public class KreiranjeNalogaView extends Div {
     }
 
     private void osveziPrikaz(){
-        grid.setItems(query -> nalogService.lazyFindAll(query.getPage(), query.getPageSize()).stream());
+        dataProvider = new ListDataProvider<>(nalogService.findByUserId(ulogovani.getId()));
+        grid.setDataProvider(dataProvider);
     }
 
 
@@ -230,7 +231,7 @@ public class KreiranjeNalogaView extends Div {
         dialog.open();
     }
 
-    
+
 
 }
 
