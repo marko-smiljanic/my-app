@@ -230,6 +230,7 @@ public class KreiranjeNalogaView extends Div {
         dialog.open();
     }
 
+    
 
 }
 
