@@ -22,7 +22,7 @@ public class FirmaService {
         this.repository = repository;
     }
 
-    public Iterable<Firma> findAll() {
+    public List<Firma> findAll() {
         return repository.findAll();
     }
 

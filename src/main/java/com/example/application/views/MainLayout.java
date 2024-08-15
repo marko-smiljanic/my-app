@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
+import com.example.application.views.kreiranjeNalogaView.KreiranjeNalogaView;
 import com.example.application.views.tabelaFirma.TabelaFirmaView;
 import com.example.application.views.tabelaNalog.TabelaNalogView;
 import com.example.application.views.tabelaRoba.TabelaRobaView;
@@ -103,6 +104,9 @@ public class MainLayout extends AppLayout {
         }
         if (accessChecker.hasAccess(TabelaStavkaNalogaView.class)) {
             nav.addItem(new SideNavItem("Stavke naloga", TabelaStavkaNalogaView.class, LineAwesomeIcon.FOLDER.create()));
+        }
+        if (accessChecker.hasAccess(KreiranjeNalogaView.class)) {
+            nav.addItem(new SideNavItem("Kreiraj nalog", KreiranjeNalogaView.class, LineAwesomeIcon.PLUS_SOLID.create()));
         }
 
 

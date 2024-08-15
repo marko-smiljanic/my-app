@@ -23,7 +23,7 @@ public class StavkaNalogaService {
         this.repository = repository;
     }
 
-    public Iterable<StavkaNaloga> findAll() {
+    public List<StavkaNaloga> findAll() {
         return repository.findAll();
     }
 

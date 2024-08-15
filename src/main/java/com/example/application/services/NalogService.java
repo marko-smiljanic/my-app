@@ -2,6 +2,7 @@ package com.example.application.services;
 
 import com.example.application.DTO.Konverzija;
 import com.example.application.DTO.NalogDTO;
+import com.example.application.DTO.UserDTO;
 import com.example.application.entity.Nalog;
 import com.example.application.repository.NalogRepository;
 import jakarta.transaction.Transactional;
@@ -35,6 +36,13 @@ public class NalogService {
 
     public Optional<Nalog> findById(Long id) {
         return repository.findById(id);
+    }
+
+    @Transactional
+    public List<NalogDTO> findByUserId(Long id){
+        return repository.findByUserId(id).stream()
+                .map(nalog -> Konverzija.konvertujUDto(nalog, NalogDTO.class))
+                .collect(Collectors.toList());
     }
 
     public Nalog create(Nalog n) {

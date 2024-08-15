@@ -21,6 +21,7 @@ public class AboutView extends VerticalLayout {
     private AuthenticatedUser authenticatedUser;
 
     public AboutView(AuthenticatedUser authenticatedUser) {
+
         this.authenticatedUser = authenticatedUser;
         //ovo je primer kako se moze raditi provera prava pristupa za odredjene delove komponente
         if (authenticatedUser.hasRole(Role.USER) && authenticatedUser.hasRole(Role.ADMIN)){
