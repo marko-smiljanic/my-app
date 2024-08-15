@@ -14,4 +14,5 @@ Nedostaci i spisak stvari koje treba da se dorade:
 -Pri kreiranju i izmeni korisnika videti sta raditi sa passwordom. Ja sam ostavio i pri kreiranju i pri izmeni da se mora uneti polje,
 	i da ono nije bindovano iz baze (jer se radi o hes vrednosti). Verovatno treba drugacije odraditi, ali za sada je tako.
 -Za sada korisnik role user ne moze da kreira stavku naloga nego pri kreiranju naloga mora da odabere neku od postojecih.
+-Mozda treba kada odem na prikaz svih naloga uvezati nekako i prikaz njegovih stavki?
 

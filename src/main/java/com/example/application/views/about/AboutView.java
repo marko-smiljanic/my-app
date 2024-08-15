@@ -33,7 +33,7 @@ public class AboutView extends VerticalLayout {
                 add(new H2("Ti si --ADMIN."));
             }
             else {
-                add(new H2("Nisi ulogovan. Za Dodatne funkcionalnosti uloguj se kao ADMIN."));
+                add(new H2("Nisi ulogovan. Za Dodatne funkcionalnosti uloguj se."));
             }
         }
 
