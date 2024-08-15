@@ -1,11 +1,17 @@
 package com.example.application.services;
 
+import com.example.application.DTO.FirmaDTO;
+import com.example.application.DTO.Konverzija;
 import com.example.application.entity.Firma;
 import com.example.application.repository.FirmaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FirmaService {
@@ -18,6 +24,13 @@ public class FirmaService {
 
     public Iterable<Firma> findAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    public List<FirmaDTO> lazyFindAll(int page, int pageSize) {
+        return repository.findAll(PageRequest.of(page, pageSize)).stream()
+                .map(firma -> Konverzija.konvertujUDto(firma, FirmaDTO.class))
+                .collect(Collectors.toList());
     }
 
     public Optional<Firma> findById(Long id) {

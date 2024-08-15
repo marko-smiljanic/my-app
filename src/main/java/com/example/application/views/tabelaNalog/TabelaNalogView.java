@@ -122,7 +122,7 @@ public class TabelaNalogView extends Div {
 
     private void addNalog(){
         Dialog dialog = new Dialog();
-        dialog.setWidth("400px");
+        dialog.setWidth("500px");
 
         // Kreiraj Binder za UserDTO
         Binder<Nalog> binder = new Binder<>(Nalog.class);
@@ -145,13 +145,13 @@ public class TabelaNalogView extends Div {
         binder.forField(usernameField)
                 .asRequired("Field is required")
                 .bind(
-                        nalogDTO -> nalogDTO.getUser() != null ? nalogDTO.getUser().getUsername() : "",
-                        (nalogDTO, username) -> {
+                        nalog -> nalog.getUser() != null ? nalog.getUser().getUsername() : "",
+                        (nalog, username) -> {
                             if (username != null) {
                                 User user = userService.findByUsername(username);
-                                nalogDTO.setUser(user);
+                                nalog.setUser(user);
                             } else {
-                                nalogDTO.setUser(null);
+                                nalog.setUser(null);
                             }
                         }
                 );
@@ -159,13 +159,13 @@ public class TabelaNalogView extends Div {
         binder.forField(firmaField)
                 .asRequired("Field is required")
                 .bind(
-                    nalogDTO -> nalogDTO.getFirma() != null ? nalogDTO.getFirma().getPib() : "",
-                    (nalogDTO, firmaPib) -> {
+                    nalog -> nalog.getFirma() != null ? nalog.getFirma().getPib() : "",
+                    (nalog, firmaPib) -> {
                         if (firmaPib != null) {
                             Firma firma = firmaService.findByPib(firmaPib);
-                            nalogDTO.setFirma(firma);
+                            nalog.setFirma(firma);
                         } else {
-                            nalogDTO.setFirma(null);
+                            nalog.setFirma(null);
                         }
                     }
                 );
@@ -185,7 +185,7 @@ public class TabelaNalogView extends Div {
 
         Button cancelButton = new Button("Cancel", event -> dialog.close());
 
-        dialog.add(new VerticalLayout(vremeField, usernameField, firmaField,saveButton, cancelButton));
+        dialog.add(new VerticalLayout(vremeField, usernameField, firmaField, saveButton, cancelButton));
         dialog.open();
     }
 
@@ -263,6 +263,24 @@ public class TabelaNalogView extends Div {
         dialog.add(new VerticalLayout(vremeField, usernameField, firmaField,saveButton, cancelButton));
         dialog.open();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //    private void addNalog(){

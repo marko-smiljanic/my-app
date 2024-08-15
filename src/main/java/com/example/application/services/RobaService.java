@@ -33,6 +33,10 @@ public class RobaService {
                 .collect(Collectors.toList());
     }
 
+    public Roba findBySifra(String sifra){
+        return repository.findBySifra(sifra);
+    }
+
     @Transactional
     public Optional<Roba> get(Long id) {
         return repository.findById(id);

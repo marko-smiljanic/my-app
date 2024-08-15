@@ -3,9 +3,11 @@ package com.example.application.views;
 import com.example.application.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.about.AboutView;
+import com.example.application.views.tabelaFirma.TabelaFirmaView;
 import com.example.application.views.tabelaNalog.TabelaNalogView;
 import com.example.application.views.tabelaRoba.TabelaRobaView;
 import com.example.application.views.tabelaKorisnika.TabelaKorisnikaView;
+import com.example.application.views.tabelaStavkaNaloga.TabelaStavkaNalogaView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -94,7 +96,13 @@ public class MainLayout extends AppLayout {
             nav.addItem(new SideNavItem("Roba", TabelaRobaView.class, LineAwesomeIcon.BOX_OPEN_SOLID.create()));
         }
         if (accessChecker.hasAccess(TabelaNalogView.class)) {
-            nav.addItem(new SideNavItem("Nalozi", TabelaNalogView.class, LineAwesomeIcon.BOX_OPEN_SOLID.create()));
+            nav.addItem(new SideNavItem("Nalozi", TabelaNalogView.class, LineAwesomeIcon.FILE_ALT_SOLID.create()));
+        }
+        if (accessChecker.hasAccess(TabelaFirmaView.class)) {
+            nav.addItem(new SideNavItem("Firme", TabelaFirmaView.class, LineAwesomeIcon.BUILDING.create()));
+        }
+        if (accessChecker.hasAccess(TabelaStavkaNalogaView.class)) {
+            nav.addItem(new SideNavItem("Stavke naloga", TabelaStavkaNalogaView.class, LineAwesomeIcon.FOLDER.create()));
         }
 
 
